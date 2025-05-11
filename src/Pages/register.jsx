@@ -21,7 +21,7 @@ const Register = () => {
     const [showPassword, setShowPassword] = useState(false);
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [submitError, setSubmitError] = useState("");
-    const API_URL = "http://localhost:5000";
+    const API_URL = import.meta.env.VITE_API_URL;
 
     // Validation functions
     const validateName = (name) => {

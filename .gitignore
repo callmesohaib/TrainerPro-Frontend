@@ -16,10 +16,9 @@ dist-ssr
 
 # Environment and local config
 *.local
+.env
 
 # Package lock files
-package-lock.json
-package.json
 yarn.lock
 pnpm-lock.yaml
 

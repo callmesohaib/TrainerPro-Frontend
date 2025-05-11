@@ -4,7 +4,7 @@ import { FaPhone, FaEnvelope, FaMapMarkerAlt, FaPaperPlane, FaCheckCircle, FaTim
 import axios from "axios";
 
 const Contact = () => {
-  const API_URL = "http://localhost:5000";
+  const API_URL = import.meta.env.VITE_API_URL;
   const [formData, setFormData] = useState({
     name: "",
     email: "",

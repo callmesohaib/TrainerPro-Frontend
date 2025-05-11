@@ -5,7 +5,7 @@ import axios from "axios";
 import { useNavigate, useParams } from "react-router-dom";
 
 const CreateWorkout = () => {
-    const API_URL = "http://localhost:5000";
+    const API_URL = import.meta.env.VITE_API_URL;
     const navigate = useNavigate();
     const { id } = useParams();
     useEffect(() => {

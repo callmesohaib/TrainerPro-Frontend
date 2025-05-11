@@ -5,7 +5,7 @@ import { FaDumbbell, FaChartLine, FaCalendarAlt, FaTrophy } from "react-icons/fa
 import axios from "axios";
 
 const Dashboard = () => {
-    const API_URL = "http://localhost:5000";
+    const API_URL = import.meta.env.VITE_API_URL;
     const [stats, setStats] = useState({ totalWorkouts: 0, totalCalories: 0 });
     const [isLoading, setIsLoading] = useState(true);
     const navigate = useNavigate();

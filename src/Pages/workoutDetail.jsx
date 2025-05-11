@@ -7,7 +7,7 @@ import axios from "axios";
 const WorkoutDetails = () => {
   const { id } = useParams();
   const navigate = useNavigate();
-  const API_URL = "http://localhost:5000/api";
+  const API_URL = import.meta.env.VITE_API_URL;
 
   const [workout, setWorkout] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
@@ -24,7 +24,7 @@ const WorkoutDetails = () => {
   useEffect(() => {
     const fetchWorkout = async () => {
       try {
-        const response = await axios.get(`${API_URL}/workouts/${id}`);
+        const response = await axios.get(`${API_URL}/api/workouts/${id}`);
         setWorkout({
           ...response.data,
           date: new Date(response.data.date),
@@ -41,7 +41,7 @@ const WorkoutDetails = () => {
 
   const handleDelete = async () => {
     try {
-      await axios.delete(`${API_URL}/workouts/${id}`);
+      await axios.delete(`${API_URL}/api/workouts/${id}`);
       navigate("/workouts");
     } catch (err) {
       setError(err.response?.data?.message || "Failed to delete workout");

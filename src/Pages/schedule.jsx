@@ -5,7 +5,7 @@ import axios from "axios";
 import { NavLink, useNavigate } from "react-router-dom";
 
 const Schedule = () => {
-    const API_URL = "http://localhost:5000";
+    const API_URL = import.meta.env.VITE_API_URL;
     const navigate = useNavigate();
     const [workouts, setWorkouts] = useState([]);
     const [isLoading, setIsLoading] = useState(true);

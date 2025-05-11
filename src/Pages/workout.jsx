@@ -6,7 +6,7 @@ import axios from "axios";
 
 const Workout = () => {
   const navigate = useNavigate();
-  const API_URL = "http://localhost:5000/api";
+  const API_URL = import.meta.env.VITE_API_URL;
 
   const [workouts, setWorkouts] = useState([]);
   const [filteredWorkouts, setFilteredWorkouts] = useState([]);
@@ -32,7 +32,7 @@ const Workout = () => {
           return navigate("/login");
         }
 
-        const response = await axios.get(`${API_URL}/workouts/all-workouts`, {
+        const response = await axios.get(`${API_URL}/api/workouts/all-workouts`, {
           headers: { Authorization: `Bearer ${token}` },
         });
         const workoutsWithDates = response.data.workouts.map((workout) => ({
