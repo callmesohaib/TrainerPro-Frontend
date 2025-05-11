@@ -25,7 +25,7 @@ useEffect(() => {
         return;
       }
 
-      const response = await axios.get(`${API_URL}/api/user/me`, {
+      const response = await axios.get(`${API_URL}api/user/me`, {
         headers: { Authorization: `Bearer ${token}` }
       });
 
@@ -88,7 +88,7 @@ useEffect(() => {
             }
 
             const response = await axios.put(
-                `${API_URL}/api/user/me`,
+                `${API_URL}api/user/me`,
                 {
                     name: formData.name,
                     phoneNumber: formData.phoneNumber

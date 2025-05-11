@@ -39,7 +39,7 @@ const Schedule = () => {
 
                 }
 
-                const response = await axios.get(`${API_URL}/api/workouts/all-workouts`, {
+                const response = await axios.get(`${API_URL}api/workouts/all-workouts`, {
                     headers: { Authorization: `Bearer ${token}` },
                 });
 
@@ -73,7 +73,7 @@ const Schedule = () => {
             }
 
             const response = await axios.patch(
-                `${API_URL}/api/workouts/${workoutId}/complete`,
+                `${API_URL}api/workouts/${workoutId}/complete`,
                 {},
                 {
                     headers: { Authorization: `Bearer ${token}` },

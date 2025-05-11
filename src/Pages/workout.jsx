@@ -32,7 +32,7 @@ const Workout = () => {
           return navigate("/login");
         }
 
-        const response = await axios.get(`${API_URL}/api/workouts/all-workouts`, {
+        const response = await axios.get(`${API_URL}api/workouts/all-workouts`, {
           headers: { Authorization: `Bearer ${token}` },
         });
         const workoutsWithDates = response.data.workouts.map((workout) => ({

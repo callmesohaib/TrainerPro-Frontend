@@ -17,7 +17,7 @@ const Dashboard = () => {
                 if (!token)
                     return navigate("/login");
 
-                const response = await axios.get(`${API_URL}/api/workouts/all-workouts`, {
+                const response = await axios.get(`${API_URL}api/workouts/all-workouts`, {
                     headers: { Authorization: `Bearer ${token}` }
                 });
 

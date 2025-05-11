@@ -99,7 +99,7 @@ const Register = () => {
         setIsSubmitting(true);
 
         try {
-            const response = await axios.post(`${API_URL}/api/user/register`, formData, {
+            const response = await axios.post(`${API_URL}api/user/register`, formData, {
                 headers: {
                     'Content-Type': 'application/json'
                 }

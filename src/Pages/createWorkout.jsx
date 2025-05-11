@@ -47,7 +47,7 @@ const CreateWorkout = () => {
                         return navigate("/login");
 
                     }
-                    const response = await axios.get(`${API_URL}/api/workouts/${id}`, {
+                    const response = await axios.get(`${API_URL}api/workouts/${id}`, {
                         headers: { Authorization: `Bearer ${token}` }
                     });
                     const workout = response.data;
@@ -129,11 +129,11 @@ const CreateWorkout = () => {
 
             let response;
             if (id) {
-                response = await axios.put(`${API_URL}/api/workouts/${id}`, workoutData, {
+                response = await axios.put(`${API_URL}api/workouts/${id}`, workoutData, {
                     headers: { Authorization: `Bearer ${token}` }
                 });
             } else {
-                response = await axios.post(`${API_URL}/api/workouts`, workoutData, {
+                response = await axios.post(`${API_URL}api/workouts`, workoutData, {
                     headers: { Authorization: `Bearer ${token}` }
                 });
             }

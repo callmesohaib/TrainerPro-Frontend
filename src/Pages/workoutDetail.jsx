@@ -24,7 +24,7 @@ const WorkoutDetails = () => {
   useEffect(() => {
     const fetchWorkout = async () => {
       try {
-        const response = await axios.get(`${API_URL}/api/workouts/${id}`);
+        const response = await axios.get(`${API_URL}api/workouts/${id}`);
         setWorkout({
           ...response.data,
           date: new Date(response.data.date),
@@ -41,7 +41,7 @@ const WorkoutDetails = () => {
 
   const handleDelete = async () => {
     try {
-      await axios.delete(`${API_URL}/api/workouts/${id}`);
+      await axios.delete(`${API_URL}api/workouts/${id}`);
       navigate("/workouts");
     } catch (err) {
       setError(err.response?.data?.message || "Failed to delete workout");

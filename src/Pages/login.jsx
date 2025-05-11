@@ -67,7 +67,7 @@ const Login = () => {
 
         setIsSubmitting(true);
         try {
-            const response = await axios.post(`${API_URL}/api/user/login`, formData);
+            const response = await axios.post(`${API_URL}api/user/login`, formData);
             if (response.data.success) {
                 localStorage.setItem("token", response.data.token);
                 if (rememberMe) {
