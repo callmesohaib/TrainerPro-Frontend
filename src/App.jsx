@@ -14,6 +14,7 @@ import Workout from './Pages/workout';
 import Dashboard from './Pages/dashboard';
 import Progress from './Pages/progress';
 import WorkoutDetails from './Pages/workoutDetail';
+import WorkoutTimer from './Pages/workoutTimer';
 
 function App() {
 
@@ -32,6 +33,7 @@ function App() {
         <Route path="/workouts/edit/:id" element={<CreateWorkout />} />
         <Route path="/workouts" element={<Workout />} />
         <Route path="/progress" element={<Progress />} />
+        <Route path="/workout-timer/:id" element={<WorkoutTimer />} />
         <Route path="/create-workout" element={<CreateWorkout />} />
       </Routes>
       <Footer />

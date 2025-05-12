@@ -14,10 +14,17 @@ const CreateWorkout = () => {
             return navigate("/login");
         }
     });
+    const getLocalDateTimeString = () => {
+        const now = new Date();
+        const timezoneOffset = now.getTimezoneOffset() * 60000; 
+        const localTime = new Date(now - timezoneOffset);
+        return localTime.toISOString().slice(0, 16);
+    };
+
     const [formData, setFormData] = useState({
         name: "",
         type: "strength",
-        date: new Date().toISOString().slice(0, 16),
+        date: getLocalDateTimeString(), 
         duration: 30,
         exercises: [{ name: "", sets: 3, reps: 10, duration: null }],
         notes: "",

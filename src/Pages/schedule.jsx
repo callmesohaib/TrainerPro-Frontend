@@ -99,7 +99,7 @@ const Schedule = () => {
     };
 
     const handleStartNow = (workoutId) => {
-        navigate(`/workouts/${workoutId}`);
+        navigate(`/workout-timer/${workoutId}`);
     };
 
     const filteredWorkouts = workouts.filter((workout) => {
