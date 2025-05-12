@@ -13,6 +13,7 @@ const Navbar = () => {
         { name: "Workouts", path: "/workouts" },
         { name: "Schedule", path: "/schedule" },
         { name: "Profile", path: "/profile" },
+        { name: "AI Workouts", path: "/smart-workouts" },
     ];
 
     const handleLogout = () => {

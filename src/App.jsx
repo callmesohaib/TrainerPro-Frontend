@@ -15,6 +15,7 @@ import Dashboard from './Pages/dashboard';
 import Progress from './Pages/progress';
 import WorkoutDetails from './Pages/workoutDetail';
 import WorkoutTimer from './Pages/workoutTimer';
+import SmartWorkout from './Pages/smartWorkout';
 
 const ScrollToTop = () => {
   const { pathname } = useLocation();
@@ -54,6 +55,11 @@ function App() {
           <Route path="/dashboard" element={
             <ProtectedRoute>
               <Dashboard />
+            </ProtectedRoute>
+          } />
+          <Route path="/smart-workouts" element={
+            <ProtectedRoute>
+              <SmartWorkout />
             </ProtectedRoute>
           } />
 
