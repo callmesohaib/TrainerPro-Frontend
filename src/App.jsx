@@ -16,6 +16,10 @@ import Progress from './Pages/progress';
 import WorkoutDetails from './Pages/workoutDetail';
 import WorkoutTimer from './Pages/workoutTimer';
 import SmartWorkout from './Pages/smartWorkout';
+import PageNotFound from './Pages/pageNotFound';
+import Careers from './Pages/career';
+import DemoPage from './Pages/demo';
+import FAQPage from './Pages/faq';
 
 const ScrollToTop = () => {
   const { pathname } = useLocation();
@@ -46,7 +50,7 @@ function App() {
   return (
     <div className="app-container">
       <Navbar />
-      <ScrollToTop /> 
+      <ScrollToTop />
 
       <main className="main-content">
         <Routes>
@@ -62,7 +66,6 @@ function App() {
               <SmartWorkout />
             </ProtectedRoute>
           } />
-
           <Route path="/profile" element={
             <ProtectedRoute>
               <Profile />
@@ -104,7 +107,21 @@ function App() {
               <WorkoutTimer />
             </ProtectedRoute>
           } />
-
+          <Route path="/careers" element={
+            <ProtectedRoute>
+              <Careers />
+            </ProtectedRoute>
+          } />
+          <Route path="/demo" element={
+            <ProtectedRoute>
+              <DemoPage />
+            </ProtectedRoute>
+          } />
+          <Route path="/faq" element={
+            <ProtectedRoute>
+              <FAQPage />
+            </ProtectedRoute>
+          } />
           <Route path="/create-workout" element={
             <ProtectedRoute>
               <CreateWorkout />
@@ -115,6 +132,9 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
           <Route path="/contact" element={<Contact />} />
+
+
+          <Route path="*" element={<PageNotFound />} />
         </Routes>
       </main>
 
