@@ -14,7 +14,7 @@ const Navbar = () => {
         { name: "Schedule", path: "/schedule" },
         { name: "Profile", path: "/profile" },
         { name: "AI Workouts", path: "/smart-workouts" },
-        { name: "contact", path: "/contact" },
+        { name: "Contact", path: "/contact" },
     ];
 
     const handleLogout = () => {
