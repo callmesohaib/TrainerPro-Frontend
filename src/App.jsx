@@ -53,7 +53,7 @@ function App() {
 
   useEffect(() => {
     setIsLoading(true);
-    const timer = setTimeout(() => setIsLoading(false), 200); 
+    const timer = setTimeout(() => setIsLoading(false), 200);
     return () => clearTimeout(timer);
   }, [location.pathname]);
 
@@ -61,96 +61,92 @@ function App() {
     <div className="app-container">
       <Navbar />
       <ScrollToTop />
-          {isLoading && <LoadingSpinner fullScreen />}
+      {isLoading && <LoadingSpinner fullScreen />}
 
       <main className="main-content">
-        {isLoading ? (
-          <div className="loading-spinner">Loading...</div> 
-        ) : (
-          <Routes>
-            <Route path="/" element={<Home />} />
+        <Routes>
+          <Route path="/" element={<Home />} />
 
-            <Route path="/dashboard" element={
-              <ProtectedRoute>
-                <Dashboard />
-              </ProtectedRoute>
-            } />
-            <Route path="/smart-workouts" element={
-              <ProtectedRoute>
-                <SmartWorkout />
-              </ProtectedRoute>
-            } />
-            <Route path="/profile" element={
-              <ProtectedRoute>
-                <Profile />
-              </ProtectedRoute>
-            } />
+          <Route path="/dashboard" element={
+            <ProtectedRoute>
+              <Dashboard />
+            </ProtectedRoute>
+          } />
+          <Route path="/smart-workouts" element={
+            <ProtectedRoute>
+              <SmartWorkout />
+            </ProtectedRoute>
+          } />
+          <Route path="/profile" element={
+            <ProtectedRoute>
+              <Profile />
+            </ProtectedRoute>
+          } />
 
-            <Route path="/schedule" element={
-              <ProtectedRoute>
-                <Schedule />
-              </ProtectedRoute>
-            } />
+          <Route path="/schedule" element={
+            <ProtectedRoute>
+              <Schedule />
+            </ProtectedRoute>
+          } />
 
-            <Route path="/workouts/:id" element={
-              <ProtectedRoute>
-                <WorkoutDetails />
-              </ProtectedRoute>
-            } />
+          <Route path="/workouts/:id" element={
+            <ProtectedRoute>
+              <WorkoutDetails />
+            </ProtectedRoute>
+          } />
 
-            <Route path="/workouts/edit/:id" element={
-              <ProtectedRoute>
-                <CreateWorkout />
-              </ProtectedRoute>
-            } />
+          <Route path="/workouts/edit/:id" element={
+            <ProtectedRoute>
+              <CreateWorkout />
+            </ProtectedRoute>
+          } />
 
-            <Route path="/workouts" element={
-              <ProtectedRoute>
-                <Workout />
-              </ProtectedRoute>
-            } />
+          <Route path="/workouts" element={
+            <ProtectedRoute>
+              <Workout />
+            </ProtectedRoute>
+          } />
 
-            <Route path="/progress" element={
-              <ProtectedRoute>
-                <Progress />
-              </ProtectedRoute>
-            } />
+          <Route path="/progress" element={
+            <ProtectedRoute>
+              <Progress />
+            </ProtectedRoute>
+          } />
 
-            <Route path="/workout-timer/:id" element={
-              <ProtectedRoute>
-                <WorkoutTimer />
-              </ProtectedRoute>
-            } />
-            <Route path="/careers" element={
-              <ProtectedRoute>
-                <Careers />
-              </ProtectedRoute>
-            } />
-            <Route path="/demo" element={
-              <ProtectedRoute>
-                <DemoPage />
-              </ProtectedRoute>
-            } />
-            <Route path="/faq" element={
-              <ProtectedRoute>
-                <FAQPage />
-              </ProtectedRoute>
-            } />
-            <Route path="/create-workout" element={
-              <ProtectedRoute>
-                <CreateWorkout />
-              </ProtectedRoute>
-            } />
+          <Route path="/workout-timer/:id" element={
+            <ProtectedRoute>
+              <WorkoutTimer />
+            </ProtectedRoute>
+          } />
+          <Route path="/careers" element={
+            <ProtectedRoute>
+              <Careers />
+            </ProtectedRoute>
+          } />
+          <Route path="/demo" element={
+            <ProtectedRoute>
+              <DemoPage />
+            </ProtectedRoute>
+          } />
+          <Route path="/faq" element={
+            <ProtectedRoute>
+              <FAQPage />
+            </ProtectedRoute>
+          } />
+          <Route path="/create-workout" element={
+            <ProtectedRoute>
+              <CreateWorkout />
+            </ProtectedRoute>
+          } />
 
-            {/* Public routes */}
-            <Route path="/login" element={<Login />} />
-            <Route path="/register" element={<Register />} />
-            <Route path="/contact" element={<Contact />} />
+          {/* Public routes */}
+          <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />
+          <Route path="/contact" element={<Contact />} />
 
 
-            <Route path="*" element={<PageNotFound />} />
-          </Routes>
-        )}
+          <Route path="*" element={<PageNotFound />} />
+        </Routes>
       </main>
 
       {!isLoading && <Footer />}
