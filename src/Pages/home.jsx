@@ -1,10 +1,43 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { motion } from "framer-motion";
 import { NavLink } from "react-router-dom";
 import { FaDumbbell, FaHeartbeat, FaChartLine, FaUserAlt } from "react-icons/fa";
 
 const Home = () => {
     const isAuthenticated = !!localStorage.getItem("token");
+    useEffect(() => {
+        const hasVisitedBefore = localStorage.getItem('hasVisitedBefore');
+
+        if (!hasVisitedBefore) {
+
+            speakWelcomeMessage();
+
+            localStorage.setItem('hasVisitedBefore', 'true');
+        }
+    }, []);
+
+    const speakWelcomeMessage = () => {
+
+        if ('speechSynthesis' in window) {
+            const speech = new SpeechSynthesisUtterance();
+            speech.text = "Welcome to our AI Fitness Trainer! We're excited to help you transform your body with precision. Explore our features and start your fitness journey today!";
+            speech.volume = 1;
+            speech.rate = 1;
+            speech.pitch = 1;
+
+            const voices = window.speechSynthesis.getVoices();
+            const preferredVoice = voices.find(voice =>
+                voice.name.includes('English') ||
+                voice.lang.includes('en-')
+            );
+
+            if (preferredVoice) {
+                speech.voice = preferredVoice;
+            }
+
+            window.speechSynthesis.speak(speech);
+        }
+    };
 
     const containerVariants = {
         hidden: { opacity: 0 },
