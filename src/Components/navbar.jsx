@@ -18,7 +18,7 @@ const Navbar = () => {
     ];
 
     const aiFeatures = [
-        { name: "Workouts", path: "/smart-workouts" },
+        { name: "AI Workouts", path: "/smart-workouts" },
         { name: "Nutrition Advisor", path: "/nutrition-advisor" },
     ];
 
@@ -120,7 +120,7 @@ const Navbar = () => {
                             ))}
 
                             {/* AI Features Dropdown */}
-                            <motion.div 
+                            <motion.div
                                 variants={itemVariants}
                                 className="relative"
                             >
@@ -312,7 +312,7 @@ const Navbar = () => {
                                             initial={{ opacity: 0 }}
                                             animate={{ opacity: 1 }}
                                             transition={{ delay: 0.2 }}
-                                            className="w-full px-4 py-2 rounded-md text-base font-medium bg-transparent border border-amber-500 text-amber-400 hover:bg-amber-500 hover:text-gray-900"
+                                            className="w-full px-4 py-2 mb-2 rounded-md text-base font-medium bg-transparent border border-amber-500 text-amber-400 hover:bg-amber-500 hover:text-gray-900"
                                         >
                                             Login
                                         </motion.button>
