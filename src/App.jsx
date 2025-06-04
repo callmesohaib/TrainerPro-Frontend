@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from 'react';
-import { Routes, Route, useLocation } from "react-router-dom";
+import React, { use, useEffect, useState } from 'react';
+import { Routes, Route, useLocation, useNavigate } from "react-router-dom";
 import Login from './Pages/login';
 import Register from './Pages/register';
 import Navbar from './Components/navbar';
@@ -22,7 +22,6 @@ import FAQPage from './Pages/faq';
 import LoadingSpinner from './Components/loadingSpinner';
 import NutritionAdvisor from './Pages/nutritionAdvisor';
 
-
 const ScrollToTop = () => {
   const { pathname } = useLocation();
 
@@ -36,12 +35,17 @@ const ScrollToTop = () => {
 
   return null;
 };
-
 const ProtectedRoute = ({ children }) => {
   const token = localStorage.getItem('token');
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (!token) {
+      navigate('/login', { replace: true });
+    }
+  }, [token, navigate]);
 
   if (!token) {
-    window.location.href = '/login';
     return null;
   }
 
