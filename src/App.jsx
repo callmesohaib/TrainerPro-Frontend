@@ -20,6 +20,7 @@ import Careers from './Pages/career';
 import DemoPage from './Pages/demo';
 import FAQPage from './Pages/faq';
 import LoadingSpinner from './Components/loadingSpinner';
+import NutritionAdvisor from './Pages/nutritionAdvisor';
 
 
 const ScrollToTop = () => {
@@ -104,6 +105,11 @@ function App() {
           <Route path="/workouts" element={
             <ProtectedRoute>
               <Workout />
+            </ProtectedRoute>
+          } />
+          <Route path="/nutrition-advisor" element={
+            <ProtectedRoute>
+              <NutritionAdvisor />
             </ProtectedRoute>
           } />
 

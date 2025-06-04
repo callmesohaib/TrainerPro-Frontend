@@ -4,23 +4,37 @@ import { NavLink, useLocation, useNavigate } from "react-router-dom";
 
 const Navbar = () => {
     const [isOpen, setIsOpen] = useState(false);
+    const [isFeaturesOpen, setIsFeaturesOpen] = useState(false);
     const location = useLocation();
     const navigate = useNavigate();
     const isAuthenticated = !!localStorage.getItem("token");
 
-    const links = [
+    const mainLinks = [
         { name: "Dashboard", path: "/dashboard" },
         { name: "Workouts", path: "/workouts" },
         { name: "Schedule", path: "/schedule" },
         { name: "Profile", path: "/profile" },
-        { name: "AI Workouts", path: "/smart-workouts" },
         { name: "Contact", path: "/contact" },
+    ];
+
+    const aiFeatures = [
+        { name: "Workouts", path: "/smart-workouts" },
+        { name: "Nutrition Advisor", path: "/nutrition-advisor" },
     ];
 
     const handleLogout = () => {
         localStorage.removeItem("token");
         setIsOpen(false);
         navigate("/login");
+    };
+
+    const toggleFeatures = () => {
+        setIsFeaturesOpen(!isFeaturesOpen);
+    };
+
+    const closeAllMenus = () => {
+        setIsOpen(false);
+        setIsFeaturesOpen(false);
     };
 
     const containerVariants = {
@@ -52,12 +66,19 @@ const Navbar = () => {
         tap: { scale: 0.98 },
     };
 
+    const dropdownVariants = {
+        hidden: { opacity: 0, y: -10 },
+        visible: { opacity: 1, y: 0 },
+        exit: { opacity: 0, y: -10 }
+    };
+
     return (
         <motion.nav
             initial={{ y: -100 }}
             animate={{ y: 0 }}
             transition={{ type: "spring", stiffness: 200, damping: 20 }}
-            className="fixed top-0 left-0 w-full z-50 bg-gray-900 border-b border-gray-800 shadow-lg"        >
+            className="fixed top-0 left-0 w-full z-50 bg-gray-900 border-b border-gray-800 shadow-lg"
+        >
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div className="flex items-center justify-between h-16">
                     {/* Logo */}
@@ -66,7 +87,7 @@ const Navbar = () => {
                         whileTap={{ scale: 0.95 }}
                         className="flex-shrink-0"
                     >
-                        <NavLink to="/" className="flex items-center" end>
+                        <NavLink to="/" className="flex items-center" onClick={closeAllMenus} end>
                             <span className="text-amber-400 text-xl font-bold bg-gradient-to-r from-amber-400 to-amber-600 bg-clip-text text-transparent">
                                 TRAINER PRO
                             </span>
@@ -81,10 +102,11 @@ const Navbar = () => {
                             animate="visible"
                             className="ml-10 flex items-center space-x-4"
                         >
-                            {links.map((link) => (
+                            {mainLinks.map((link) => (
                                 <motion.div key={link.path} variants={itemVariants}>
                                     <NavLink
                                         to={link.path}
+                                        onClick={closeAllMenus}
                                         className={({ isActive }) =>
                                             `px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200 ${isActive
                                                 ? "bg-gray-800 text-amber-400"
@@ -96,8 +118,62 @@ const Navbar = () => {
                                     </NavLink>
                                 </motion.div>
                             ))}
+
+                            {/* AI Features Dropdown */}
+                            <motion.div 
+                                variants={itemVariants}
+                                className="relative"
+                            >
+                                <button
+                                    onClick={toggleFeatures}
+                                    className={`px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200 flex items-center ${location.pathname.includes('smart-workouts') || location.pathname.includes('nutrition-advisor')
+                                        ? "bg-gray-800 text-amber-400"
+                                        : "text-gray-300 hover:text-amber-400 hover:bg-gray-800"
+                                        }`}
+                                >
+                                    AI Features
+                                    <svg
+                                        className={`ml-1 h-4 w-4 inline transition-transform duration-200 ${isFeaturesOpen ? 'rotate-180' : ''}`}
+                                        fill="none"
+                                        viewBox="0 0 24 24"
+                                        stroke="currentColor"
+                                    >
+                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                                    </svg>
+                                </button>
+
+                                {isFeaturesOpen && (
+                                    <motion.div
+                                        initial="hidden"
+                                        animate="visible"
+                                        exit="exit"
+                                        variants={dropdownVariants}
+                                        transition={{ duration: 0.2 }}
+                                        className="absolute left-0 mt-2 w-48 rounded-md shadow-lg bg-gray-800 border border-gray-700 z-50"
+                                    >
+                                        <div className="py-1">
+                                            {aiFeatures.map((feature) => (
+                                                <NavLink
+                                                    key={feature.path}
+                                                    to={feature.path}
+                                                    onClick={closeAllMenus}
+                                                    className={({ isActive }) =>
+                                                        `block px-4 py-2 text-sm ${isActive
+                                                            ? 'bg-gray-700 text-amber-400'
+                                                            : 'text-gray-300 hover:bg-gray-700 hover:text-amber-400'
+                                                        }`
+                                                    }
+                                                >
+                                                    {feature.name}
+                                                </NavLink>
+                                            ))}
+                                        </div>
+                                    </motion.div>
+                                )}
+                            </motion.div>
                         </motion.div>
 
+                        {/* Auth buttons */}
                         <div className="ml-4 flex space-x-2">
                             {isAuthenticated ? (
                                 <motion.div variants={itemVariants}>
@@ -114,7 +190,7 @@ const Navbar = () => {
                             ) : (
                                 <>
                                     <motion.div variants={itemVariants}>
-                                        <NavLink to="/login">
+                                        <NavLink to="/login" onClick={closeAllMenus}>
                                             <motion.button
                                                 variants={buttonVariants}
                                                 whileHover="hover"
@@ -126,7 +202,7 @@ const Navbar = () => {
                                         </NavLink>
                                     </motion.div>
                                     <motion.div variants={itemVariants}>
-                                        <NavLink to="/register">
+                                        <NavLink to="/register" onClick={closeAllMenus}>
                                             <motion.button
                                                 variants={buttonVariants}
                                                 whileHover="hover"
@@ -142,7 +218,7 @@ const Navbar = () => {
                         </div>
                     </div>
 
-                    {/* Mobile menu button (with inline SVGs) */}
+                    {/* Mobile menu button */}
                     <div className="md:hidden flex items-center">
                         <button
                             onClick={() => setIsOpen(!isOpen)}
@@ -150,12 +226,10 @@ const Navbar = () => {
                             aria-expanded={isOpen}
                         >
                             {isOpen ? (
-                                // X Icon
                                 <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
                                 </svg>
                             ) : (
-                                // Hamburger Icon
                                 <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
                                 </svg>
@@ -175,7 +249,7 @@ const Navbar = () => {
                     className="md:hidden bg-gray-800"
                 >
                     <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
-                        {links.map((link) => (
+                        {mainLinks.map((link) => (
                             <motion.div
                                 key={link.path}
                                 initial={{ x: -20, opacity: 0 }}
@@ -184,7 +258,7 @@ const Navbar = () => {
                             >
                                 <NavLink
                                     to={link.path}
-                                    onClick={() => setIsOpen(false)}
+                                    onClick={closeAllMenus}
                                     className={({ isActive }) =>
                                         `block px-3 py-2 rounded-md text-base font-medium ${isActive
                                             ? "bg-gray-900 text-amber-400"
@@ -196,6 +270,30 @@ const Navbar = () => {
                                 </NavLink>
                             </motion.div>
                         ))}
+
+                        {/* Mobile version - show AI features directly */}
+                        {aiFeatures.map((link) => (
+                            <motion.div
+                                key={link.path}
+                                initial={{ x: -20, opacity: 0 }}
+                                animate={{ x: 0, opacity: 1 }}
+                                transition={{ duration: 0.3 }}
+                            >
+                                <NavLink
+                                    to={link.path}
+                                    onClick={closeAllMenus}
+                                    className={({ isActive }) =>
+                                        `block px-3 py-2 rounded-md text-base font-medium ${isActive
+                                            ? "bg-gray-900 text-amber-400"
+                                            : "text-gray-300 hover:text-amber-400 hover:bg-gray-700"
+                                        }`
+                                    }
+                                >
+                                    {link.name}
+                                </NavLink>
+                            </motion.div>
+                        ))}
+
                         <div className="mt-4 space-y-2">
                             {isAuthenticated ? (
                                 <motion.button
@@ -209,7 +307,7 @@ const Navbar = () => {
                                 </motion.button>
                             ) : (
                                 <>
-                                    <NavLink to="/login" onClick={() => setIsOpen(false)}>
+                                    <NavLink to="/login" onClick={closeAllMenus}>
                                         <motion.button
                                             initial={{ opacity: 0 }}
                                             animate={{ opacity: 1 }}
@@ -219,7 +317,7 @@ const Navbar = () => {
                                             Login
                                         </motion.button>
                                     </NavLink>
-                                    <NavLink to="/register" onClick={() => setIsOpen(false)}>
+                                    <NavLink to="/register" onClick={closeAllMenus}>
                                         <motion.button
                                             initial={{ opacity: 0 }}
                                             animate={{ opacity: 1 }}
