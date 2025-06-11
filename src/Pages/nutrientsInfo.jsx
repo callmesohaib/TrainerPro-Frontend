@@ -47,7 +47,7 @@ const NutritionInfo = () => {
             setLoading(true);
             setError(null);
             const response = await axios.get(
-                `${apiUrl}?query=${encodeURIComponent(query)}`,
+                `${apiUrl}/nutrition?query=${encodeURIComponent(query)}`,
                 {
                     headers: {
                         'X-Api-Key': apiKey
