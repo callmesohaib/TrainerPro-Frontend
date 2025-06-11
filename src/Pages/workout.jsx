@@ -14,7 +14,6 @@ const Workout = () => {
   const [error, setError] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
 
-  // Define workout icons with a sleek, modern color palette to match the favicon
   const workoutIcons = {
     strength: <FaDumbbell className="text-amber-400 h-6 w-6" />,
     cardio: <FaRunning className="text-blue-400 h-6 w-6" />,

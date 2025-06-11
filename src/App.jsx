@@ -21,6 +21,7 @@ import DemoPage from './Pages/demo';
 import FAQPage from './Pages/faq';
 import LoadingSpinner from './Components/loadingSpinner';
 import NutritionAdvisor from './Pages/nutritionAdvisor';
+import ExerciseImages from './Pages/exerciseImages';
 
 const ScrollToTop = () => {
   const { pathname } = useLocation();
@@ -109,6 +110,11 @@ function App() {
           <Route path="/workouts" element={
             <ProtectedRoute>
               <Workout />
+            </ProtectedRoute>
+          } />
+          <Route path="/exercise-images" element={
+            <ProtectedRoute>
+              <ExerciseImages />
             </ProtectedRoute>
           } />
           <Route path="/nutrition-advisor" element={
