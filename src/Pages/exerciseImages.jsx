@@ -8,9 +8,17 @@ const ExerciseImages = () => {
     const [isLoading, setIsLoading] = useState(true);
     const [error, setError] = useState(null);
     const [currentIndex, setCurrentIndex] = useState(0);
-    const [direction, setDirection] = useState(1); 
-      const API_URL = import.meta.env.VITE_API_URL;
+    const [direction, setDirection] = useState(1);
+    const API_URL = import.meta.env.VITE_API_URL;
+    const [showLoader, setShowLoader] = useState(false);
 
+    useEffect(() => {
+        const timer = setTimeout(() => {
+            setShowLoader(true);
+        }, 250);
+
+        return () => clearTimeout(timer);
+    }, []);
 
     useEffect(() => {
         const fetchImages = async () => {
@@ -81,7 +89,7 @@ const ExerciseImages = () => {
         },
     };
 
-    if (isLoading) {
+    if (isLoading && showLoader) {
         return (
             <div className="flex flex-col items-center justify-center min-h-[600px]">
                 <motion.div
@@ -91,7 +99,7 @@ const ExerciseImages = () => {
                 >
                     <FaSpinner className="h-12 w-12" />
                 </motion.div>
-                <p className="mt-4 text-lg text-gray-600">Loading exercise images...</p>
+                <p className="mt-4 text-lg text-gray-300">Loading exercise images...</p>
             </div>
         );
     }
@@ -116,7 +124,6 @@ const ExerciseImages = () => {
         return (
             <div className="flex items-center justify-center min-h-[600px]">
                 <div className="text-center p-6">
-                    <p className="text-gray-500">No exercise images available</p>
                 </div>
             </div>
         );
