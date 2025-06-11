@@ -20,6 +20,7 @@ const Navbar = () => {
 
     const aiFeatures = [
         { name: "AI Workouts", path: "/smart-workouts" },
+        { name: "Macro Tracker", path: "/nutrition-info" },
         { name: "Nutrition Advisor", path: "/nutrition-advisor" },
     ];
 

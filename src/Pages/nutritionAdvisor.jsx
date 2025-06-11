@@ -9,6 +9,7 @@ const ImageWithLoader = ({ src, alt, className }) => {
     const [error, setError] = useState(false);
     const imgRef = useRef(null);
 
+
     useEffect(() => {
         const img = new Image();
         img.src = src;
@@ -52,13 +53,15 @@ const NutritionAdvisor = () => {
     const [nutrients, setNutrients] = useState(null);
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);
+    const apikey = import.meta.env.VITE_SPOONACULAR_API_KEY;
+    const apiurl = import.meta.env.VITE_SPOONACULAR_API_URL;
 
     const getMealPlan = async () => {
         try {
             setLoading(true);
             setError(null);
             const response = await axios.get(
-                `https://api.spoonacular.com/mealplanner/generate?apiKey=4969860dc2194611a3cd3edf6e4ff512&timeFrame=day&targetCalories=2000`
+                `${apiurl}/mealplanner/generate?apiKey=${apikey}&timeFrame=day&targetCalories=2000`
             );
             setMeals(response.data.meals);
             setNutrients(response.data.nutrients);

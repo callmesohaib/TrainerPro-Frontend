@@ -9,6 +9,7 @@ const SmartWorkout = () => {
   const [plan, setPlan] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const WGER_API_KEY = import.meta.env.VITE_WGER_API_KEY;
+  const WGER_API_URL = import.meta.env.VITE_WGER_API_URL;
 
   const isLikelyEnglish = (text) => {
     return !/[^a-zA-Z\s'-]/.test(text) || text.toLowerCase().includes("with") || text.toLowerCase().includes("swing");
@@ -34,7 +35,7 @@ const SmartWorkout = () => {
       });
 
       const response = await axios.get(
-        `https://wger.de/api/v2/exerciseinfo/?${queryParams.toString()}`,
+        `${WGER_API_URL}/exerciseinfo/?${queryParams.toString()}`,
         {
           headers: { Authorization: `Token ${WGER_API_KEY}` },
         }

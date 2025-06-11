@@ -22,7 +22,7 @@ import FAQPage from './Pages/faq';
 import LoadingSpinner from './Components/loadingSpinner';
 import NutritionAdvisor from './Pages/nutritionAdvisor';
 import ExerciseImages from './Pages/exerciseImages';
-
+import Nutritioninfo from './Pages/nutrientsInfo';
 const ScrollToTop = () => {
   const { pathname } = useLocation();
 
@@ -76,6 +76,11 @@ function App() {
           <Route path="/dashboard" element={
             <ProtectedRoute>
               <Dashboard />
+            </ProtectedRoute>
+          } />
+          <Route path="/nutrition-info" element={
+            <ProtectedRoute>
+              <Nutritioninfo />
             </ProtectedRoute>
           } />
           <Route path="/smart-workouts" element={
