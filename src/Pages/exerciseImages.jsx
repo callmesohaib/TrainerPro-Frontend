@@ -8,12 +8,14 @@ const ExerciseImages = () => {
     const [isLoading, setIsLoading] = useState(true);
     const [error, setError] = useState(null);
     const [currentIndex, setCurrentIndex] = useState(0);
-    const [direction, setDirection] = useState(1); // 1 for forward, -1 for backward
+    const [direction, setDirection] = useState(1); 
+      const API_URL = import.meta.env.VITE_API_URL;
+
 
     useEffect(() => {
         const fetchImages = async () => {
             try {
-                const res = await axios.get("http://localhost:3000/api/gym/gym-images");
+                const res = await axios.get(`${API_URL}api/gym/gym-images`);
                 setImages(res.data);
             } catch (err) {
                 console.error("Error fetching images:", err);
@@ -97,7 +99,7 @@ const ExerciseImages = () => {
     if (error) {
         return (
             <div className="flex items-center justify-center min-h-[600px]">
-                <div className="text-center p-6 bg-red-50 rounded-lg max-w-md">
+                <div className="text-center p-6 bg-gray-600 rounded-lg max-w-md">
                     <p className="text-red-500 font-medium">{error}</p>
                     <button
                         onClick={() => window.location.reload()}
