@@ -1,4 +1,5 @@
-import React, { use, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
+import {jwtDecode} from "jwt-decode";
 import { Routes, Route, useLocation, useNavigate } from "react-router-dom";
 import Login from './Pages/login';
 import Register from './Pages/register';
@@ -43,6 +44,19 @@ const ProtectedRoute = ({ children }) => {
   useEffect(() => {
     if (!token) {
       navigate('/login', { replace: true });
+      return;
+    }
+    try {
+      const decoded = jwtDecode(token);
+      const currentTime = Date.now() / 1000;
+
+      if (decoded.exp < currentTime) {
+        localStorage.removeItem("token");
+        navigate("/login", { replace: true });
+      }
+    } catch (error) {
+      localStorage.removeItem("token");
+      navigate("/login", { replace: true });
     }
   }, [token, navigate]);
 
