@@ -1,10 +1,11 @@
 import { useState } from "react";
-import { motion } from "framer-motion";
+import { motion, setDragLock } from "framer-motion";
 import { NavLink, useLocation, useNavigate } from "react-router-dom";
 
 const Navbar = () => {
     const [isOpen, setIsOpen] = useState(false);
     const [isFeaturesOpen, setIsFeaturesOpen] = useState(false);
+    const [isSettingsOpen, setIsSettingsOpen] = useState(false);
     const location = useLocation();
     const navigate = useNavigate();
     const isAuthenticated = !!localStorage.getItem("token");
@@ -13,9 +14,8 @@ const Navbar = () => {
         { name: "Dashboard", path: "/dashboard" },
         { name: "Workouts", path: "/workouts" },
         { name: "Schedule", path: "/schedule" },
-        { name: "Profile", path: "/profile" },
         { name: "Library", path: "/exercise-images" },
-        { name: "Contact", path: "/contact" },
+
     ];
 
     const aiFeatures = [
@@ -23,6 +23,10 @@ const Navbar = () => {
         { name: "Macro Tracker", path: "/nutrition-info" },
         { name: "Nutrition Advisor", path: "/nutrition-advisor" },
     ];
+    const settings = [
+        { name: "Profile", path: "/profile" },
+        { name: "Contact", path: "/contact" }
+    ]
 
     const handleLogout = () => {
         localStorage.removeItem("token");
@@ -32,11 +36,17 @@ const Navbar = () => {
 
     const toggleFeatures = () => {
         setIsFeaturesOpen(!isFeaturesOpen);
+        setIsSettingsOpen(false);
+    };
+    const toggleSettings = () => {
+        setIsSettingsOpen(!isSettingsOpen);
+        setIsFeaturesOpen(false);
     };
 
     const closeAllMenus = () => {
         setIsOpen(false);
         setIsFeaturesOpen(false);
+        setIsSettingsOpen(false);
     };
 
     const containerVariants = {
@@ -121,6 +131,58 @@ const Navbar = () => {
                                 </motion.div>
                             ))}
 
+                            {/* Settings Dropdown */}
+                            <motion.div
+                                variants={itemVariants}
+                                className="relative"
+                            >
+                                <button
+                                    onClick={toggleSettings}
+                                    className={`px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200 flex items-center ${location.pathname.includes('contact') || location.pathname.includes('profile')
+                                        ? "bg-gray-800 text-amber-400"
+                                        : "text-gray-300 hover:text-amber-400 hover:bg-gray-800"
+                                        }`}
+                                >
+                                    Settings
+                                    <svg
+                                        className={`ml-1 h-4 w-4 inline transition-transform duration-200 ${isSettingsOpen ? 'rotate-180' : ''}`}
+                                        fill="none"
+                                        viewBox="0 0 24 24"
+                                        stroke="currentColor"
+                                    >
+                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                                    </svg>
+                                </button>
+
+                                {isSettingsOpen && (
+                                    <motion.div
+                                        initial="hidden"
+                                        animate="visible"
+                                        exit="exit"
+                                        variants={dropdownVariants}
+                                        transition={{ duration: 0.2 }}
+                                        className="absolute left-0 mt-2 w-48 rounded-md shadow-lg bg-gray-800 border border-gray-700 z-50"
+                                    >
+                                        <div className="py-1">
+                                            {settings.map((set) => (
+                                                <NavLink
+                                                    key={set.path}
+                                                    to={set.path}
+                                                    onClick={closeAllMenus}
+                                                    className={({ isActive }) =>
+                                                        `block px-4 py-2 text-sm ${isActive
+                                                            ? 'bg-gray-700 text-amber-400'
+                                                            : 'text-gray-300 hover:bg-gray-700 hover:text-amber-400'
+                                                        }`
+                                                    }
+                                                >
+                                                    {set.name}
+                                                </NavLink>
+                                            ))}
+                                        </div>
+                                    </motion.div>
+                                )}
+                            </motion.div>
                             {/* AI Features Dropdown */}
                             <motion.div
                                 variants={itemVariants}
@@ -128,7 +190,7 @@ const Navbar = () => {
                             >
                                 <button
                                     onClick={toggleFeatures}
-                                    className={`px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200 flex items-center ${location.pathname.includes('smart-workouts') || location.pathname.includes('nutrition-advisor')
+                                    className={`px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200 flex items-center ${location.pathname.includes('smart-workouts') || location.pathname.includes('nutrition-advisor') || location.pathname.includes('nutrition-info')
                                         ? "bg-gray-800 text-amber-400"
                                         : "text-gray-300 hover:text-amber-400 hover:bg-gray-800"
                                         }`}
@@ -273,6 +335,28 @@ const Navbar = () => {
                             </motion.div>
                         ))}
 
+                        {/* Mobile version - show Settings directly */}
+                        {settings.map((link) => (
+                            <motion.div
+                                key={link.path}
+                                initial={{ x: -20, opacity: 0 }}
+                                animate={{ x: 0, opacity: 1 }}
+                                transition={{ duration: 0.3 }}
+                            >
+                                <NavLink
+                                    to={link.path}
+                                    onClick={closeAllMenus}
+                                    className={({ isActive }) =>
+                                        `block px-3 py-2 rounded-md text-base font-medium ${isActive
+                                            ? "bg-gray-900 text-amber-400"
+                                            : "text-gray-300 hover:text-amber-400 hover:bg-gray-700"
+                                        }`
+                                    }
+                                >
+                                    {link.name}
+                                </NavLink>
+                            </motion.div>
+                        ))}
                         {/* Mobile version - show AI features directly */}
                         {aiFeatures.map((link) => (
                             <motion.div
