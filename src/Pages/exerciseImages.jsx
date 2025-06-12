@@ -143,7 +143,7 @@ const ExerciseImages = () => {
                 <p className="text-gray-400 mt-3">Visual guides for perfect form</p>
             </div>
             {/* Main Slider */}
-            <div className="relative h-[500px] w-full rounded-xl bg-gray-800 shadow-xl border border-amber-400">
+            <div className="relative h-[500px] w-full rounded-xl bg-gray-900 shadow-xl border border-amber-400">
                 <AnimatePresence custom={direction} initial={false}>
                     <motion.div
                         key={currentIndex}
@@ -154,7 +154,7 @@ const ExerciseImages = () => {
                         exit="exit"
                         className="absolute inset-0 flex flex-col items-center justify-center p-8"
                     >
-                        <div className="relative h-100 w-full flex items-center justify-center drop-shadow-[0_2px_0px_gray]">
+                        <div className="relative h-100 w-full flex items-center justify-center drop-shadow-[0_6px_0px_white]">
                             <motion.img
                                 src={images[currentIndex].url}
                                 alt={images[currentIndex].name}
