@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
-import { FaUser, FaEnvelope, FaPhone, FaCheckCircle, FaTimesCircle, FaEdit } from "react-icons/fa";
+import { FaUser, FaEnvelope, FaPhone, FaCheckCircle, FaTimesCircle, FaEdit, FaTrash } from "react-icons/fa";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
@@ -16,43 +16,43 @@ const Profile = () => {
     const [submitStatus, setSubmitStatus] = useState(null);
     const [isLoading, setIsLoading] = useState(true);
 
-useEffect(() => {
-  const fetchProfile = async () => {
-    try {
-      const token = localStorage.getItem("token");
-      if (!token) {
-        navigate("/login");
-        return;
-      }
+    useEffect(() => {
+        const fetchProfile = async () => {
+            try {
+                const token = localStorage.getItem("token");
+                if (!token) {
+                    navigate("/login");
+                    return;
+                }
 
-      const response = await axios.get(`${API_URL}api/user/me`, {
-        headers: { Authorization: `Bearer ${token}` }
-      });
+                const response = await axios.get(`${API_URL}api/user/me`, {
+                    headers: { Authorization: `Bearer ${token}` }
+                });
 
-      if (response.data.success) {
-        setFormData({
-          name: response.data.user.name || "",
-          email: response.data.user.email || "",
-          phoneNumber: response.data.user.phoneNumber || ""
-        });
-      }
-    } catch (error) {
-      if (error.response?.status === 404) {
-        setSubmitStatus("error: Profile endpoint not found - check backend");
-      } else {
-        setSubmitStatus(
-          error.response?.data?.message
-            ? `error: ${error.response.data.message}`
-            : "error: Failed to load profile"
-        );
-      }
-    } finally {
-      setIsLoading(false);
-    }
-  };
+                if (response.data.success) {
+                    setFormData({
+                        name: response.data.user.name || "",
+                        email: response.data.user.email || "",
+                        phoneNumber: response.data.user.phoneNumber || ""
+                    });
+                }
+            } catch (error) {
+                if (error.response?.status === 404) {
+                    setSubmitStatus("error: Profile endpoint not found - check backend");
+                } else {
+                    setSubmitStatus(
+                        error.response?.data?.message
+                            ? `error: ${error.response.data.message}`
+                            : "error: Failed to load profile"
+                    );
+                }
+            } finally {
+                setIsLoading(false);
+            }
+        };
 
-  fetchProfile();
-}, [navigate]);
+        fetchProfile();
+    }, [navigate]);
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -351,6 +351,32 @@ useEffect(() => {
                         </div>
                     </motion.div>
                 </div>
+                <motion.div
+                    variants={itemVariants}
+                    className="mt-16 col-span-full"
+                >
+                    <div className="bg-gray-900/30 p-6 rounded-xl border border-red-900/90 flex flex-col md:flex-row justify-between items-center gap-4">
+                        <div className="flex-1">
+                            <h3 className="text-xl font-bold text-red-400 mb-2">
+                                Danger Zone
+                            </h3>
+                            <p className="text-gray-400">
+                                Deleting your account will permanently remove all your data including workouts and exercises.
+                                This action cannot be undone.
+                            </p>
+                        </div>
+
+                        <motion.button
+                            onClick={() => navigate("/delete-account")}
+                            whileHover={{ scale: 1.02 }}
+                            whileTap={{ scale: 0.98 }}
+                            className="w-full md:w-auto py-3 px-6 bg-gradient-to-r from-red-600 to-red-700 text-white font-bold rounded-lg flex items-center justify-center"
+                        >
+                            <FaTrash className="mr-2" />
+                            Delete Account
+                        </motion.button>
+                    </div>
+                </motion.div>
             </motion.div>
         </div>
     );

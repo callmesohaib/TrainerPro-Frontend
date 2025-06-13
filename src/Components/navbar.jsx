@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { motion, setDragLock } from "framer-motion";
+import { motion} from "framer-motion";
 import { NavLink, useLocation, useNavigate } from "react-router-dom";
 
 const Navbar = () => {
@@ -25,8 +25,7 @@ const Navbar = () => {
     ];
     const settings = [
         { name: "Profile", path: "/profile" },
-        { name: "Contact", path: "/contact" }
-    ]
+        { name: "Contact", path: "/contact" },    ]
 
     const handleLogout = () => {
         localStorage.removeItem("token");
